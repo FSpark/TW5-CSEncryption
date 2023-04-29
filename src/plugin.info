@@ -1,0 +1,14 @@
+{
+    "title": "$:/plugins/FSpark/TW5-CSE",
+    "name": "TW5-CSEncryption",
+    "description": "Client-Side Encryption for TiddlyWiki5 on Node.js",
+    "author": "FSpark",
+    "version": "0.2.0",
+    "core-version": "5.2.7",
+    "source": "",
+    "list": "readme license",
+    "parent-plugin": "",
+    "dependents": "$:/plugins/tiddlywiki/tiddlyweb",
+    "plugin-type": "plugin",
+    "packaged-by": "Gatha on 25th April 2023, 21:08:50"
+}

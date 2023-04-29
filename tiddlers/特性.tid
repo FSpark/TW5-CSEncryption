@@ -1,0 +1,9 @@
+created: 20230428055216711
+modified: 20230428163737513
+tags: 
+title: 特性
+type: text/vnd.tiddlywiki
+
+* 与 EncryptTiddler 兼容并相互作用，支持内部使用 EncryptTiddler 再加密。
+* 和 EncryptTiddler 一样使用与 TW5 内置的加密库，即 [[SJCL|Stanford JavaScript Crypto Library]] ，默认加密方式为 AES-CCM 128.
+* 支持修改和清除密码，支持修改Filter，并即时推送应用到服务器上。

@@ -1,0 +1,5 @@
+caption: Addition to be encrypted
+title: $:/plugins/FSpark/TW5-CSE/filters/increment
+type: text/vnd.tiddlywiki
+
+[subfilter<newfilter>] -[subfilter<oldfilter>]

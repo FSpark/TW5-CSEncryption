@@ -785,6 +785,92 @@ $tw.utils.Crypto = function() {
 	};
 };
 
+$tw.utils.CSE = function () {
+	var currentPassword = null;
+	this.setPassword = function(newPassword) {
+		currentPassword = newPassword;
+		if($tw.CSE.launched){
+			var isRemembered = $tw.wiki.getTiddlerData("$:/plugins/FSpark/TW5-CSE/metaconfig.json")
+			if(isRemembered && isRemembered["RmbPwd"]==="yes"){
+				this.rememberPassword();
+			}
+		}
+		this.updateCryptoStateTiddler();
+	};
+	this.rememberPassword = function (){
+		if(window && window.localStorage){
+			window.localStorage.setItem("tw5-cse-pwd", currentPassword);
+		}
+	};
+	this.forgetPassword =  function (){
+		if(window && window.localStorage){
+			window.localStorage.removeItem("tw5-cse-pwd");
+		}
+	};
+	this.updateCryptoStateTiddler = function() {
+		if($tw.wiki) {
+			var state = currentPassword ? "yes" : "no",
+				tiddler = $tw.wiki.getTiddler("$:/isCSEncrypted");
+			if(!tiddler || tiddler.fields.text !== state) {
+				$tw.wiki.addTiddler(new $tw.Tiddler({title: "$:/isCSEncrypted", text: state}));
+			}
+		}
+	};
+	this.forcePush = function (filter, widget) {
+		debugger;
+		filter = filter || $tw.wiki.getTiddlerText('$:/config/TW5-CSE/EncryptFilter',"[all[]!is[system]]")
+
+		widget = widget || $tw.rootWidget
+
+		$tw.wiki.filterTiddlers(filter, widget).forEach(function (title)  {
+			if($tw.utils.hop($tw.wiki.changeCount, title)) {
+				$tw.wiki.changeCount[title]++;
+			} else {
+				$tw.wiki.changeCount[title] = 1;
+			}
+		})
+	}
+	this.saveTiddler = function (tiddler, fields) {
+		debugger;
+		$tw.wiki.addTiddler(
+			new $tw.Tiddler(
+				// $tw.wiki.getModificationFields(),
+				tiddler,
+				this.clearNonStandardFields(tiddler),
+				fields
+			)
+		);
+	};
+	this.encryptFields = function (title, password) {
+		password = password || currentPassword;
+		var jsonData = $tw.wiki.getTiddlerAsJson(title);
+		return $tw.crypto.encrypt(jsonData, password);
+	};
+
+	this.decryptFields = function (fields, password) {
+		password = password || currentPassword;
+		var JSONfields = $tw.crypto.decrypt(fields.encrypted, password);
+		if(!!JSONfields) {
+			return JSON.parse(JSONfields);
+		}
+		console.log(
+			"Error decrypting " + fields.title + ". Probably bad password"
+		);
+		return false;
+	};
+	this.clearNonStandardFields = function (tiddler) {
+		var standardFieldNames =
+			"title tags modified modifier created creator".split(" ");
+		var clearFields = {};
+		for(var fieldName in tiddler.fields) {
+			if(standardFieldNames.indexOf(fieldName) === -1) {
+				clearFields[fieldName] = undefined;
+			}
+		}
+		console.log("Cleared fields " + JSON.stringify(clearFields));
+		return clearFields;
+	};
+}
 /////////////////////////// Module mechanism
 
 /*
@@ -1680,6 +1766,21 @@ $tw.modules.define("$:/boot/tiddlerdeserializer/json","tiddlerdeserializer",{
 			},
 			data = $tw.utils.parseJSONSafe(text);
 		if($tw.utils.isArray(data) && isTiddlerArrayValid(data)) {
+			if($tw.CSE.launched) {
+				for(var t = 0; t < data.length; t++) {
+					if($tw.utils.hop(data[t], "encrypted")) {
+						var decryptedFields = $tw.CSE.decryptFields(data[t])
+						if(decryptedFields) {
+							if($tw.utils.hop(data[t], "revision") && $tw.utils.hop(data[t], "bag"))
+								decryptedFields = $tw.utils.extend(decryptedFields, {
+									revision: data[t].revision,
+									bag: data[t].bag
+								})
+							data[t] = decryptedFields
+						}
+					}
+				}
+			}
 			return data;
 		} else if(isTiddlerValid(data)) {
 			return [data];
@@ -1733,8 +1834,33 @@ $tw.boot.decryptEncryptedTiddlers = function(callback) {
 			}
 		});
 	} else {
-		// Just invoke the callback straight away if there weren't any encrypted tiddlers
-		callback();
+		var CSEncryptedMetaArea = document.getElementById("CSEncryptedMetaArea");
+		if(CSEncryptedMetaArea){
+			var CSEncryptedText = CSEncryptedMetaArea.innerHTML,
+				prompt = "CSE: Enter a password to decrypt this TiddlyWiki";
+			var CSEncryptedInfo = JSON.parse(CSEncryptedText)
+
+			console.log(CSEncryptedMetaArea)
+			var pwdCallback = function (data) {
+				$tw.CSE.setPassword(data.password);
+				$tw.CSE.launched = true
+				callback();
+				return true;
+			}
+			if(CSEncryptedInfo && CSEncryptedInfo.config && CSEncryptedInfo.config.RmbPwd === "yes"){
+				pwdCallback({password:window.localStorage.getItem("tw5-cse-pwd")})
+			} else {
+				$tw.passwordPrompt.createPrompt({
+					serviceName: prompt,
+					noUserName: true,
+					submitText: "Decrypt",
+					callback: pwdCallback
+				});
+			}
+		} else {
+			// Just invoke the callback straight away if there weren't any encrypted tiddlers
+			callback();
+		}
 	}
 };
 
@@ -2653,6 +2779,7 @@ $tw.hooks.invokeHook = function(hookName /*, value,... */) {
 $tw.boot.boot = function(callback) {
 	// Initialise crypto object
 	$tw.crypto = new $tw.utils.Crypto();
+	$tw.CSE = new $tw.utils.CSE();
 	// Initialise password prompter
 	if($tw.browser && !$tw.node) {
 		$tw.passwordPrompt = new $tw.utils.PasswordPrompt();

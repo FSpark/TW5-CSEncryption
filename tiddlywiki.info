@@ -1,0 +1,49 @@
+{
+    "plugins": [
+        "tiddlywiki/tiddlyweb",
+        "tiddlywiki/filesystem",
+        "tiddlywiki/codemirror",
+        "tiddlywiki/highlight",
+        "tiddlywiki/pluginlibrary",
+		"tiddlywiki/markdown",
+        "FSpark/TW5-CSE"
+    ],
+
+    "themes": [
+        "tiddlywiki/vanilla",
+        "tiddlywiki/snowwhite"
+    ],
+
+    "build": {
+  		"index": [
+  			"--rendertiddler","buildHTMLTemplate","index.html","text/plain"
+        ],
+  		"readme": [
+			"--output", "./",
+			"--rendertiddler","$:/plugins/FSpark/TW5-CSE/readme","README.MD","text/html",
+			"--rendertiddler","$:/plugins/FSpark/TW5-CSE/license","LICENSE","text/plain"
+        ],
+        "plugins":[
+            "--render", "[prefix[$:/plugins/FSpark]has[plugin-type]]", "[split[/]last[]addsuffix[.json]]", "text/plain", "$:/core/templates/json-tiddler"
+        ],
+        "library": [
+			"--output", "./output/",
+			"--makelibrary","$:/UpgradeLibrary",
+			"--savelibrarytiddlers",
+				"$:/UpgradeLibrary",
+				"[prefix[$:/plugins/FSpark]]",
+				"recipes/library/tiddlers/",
+				"$:/UpgradeLibrary/List",
+			"--savetiddler",
+				"$:/UpgradeLibrary/List",
+				"recipes/library/tiddlers.json",
+			"--rendertiddler",
+				"$:/plugins/tiddlywiki/pluginlibrary/library.template.html",
+				"library.html",
+				"text/plain",
+            "--deletetiddlers",
+                "[[$:/UpgradeLibrary]] [[$:/UpgradeLibrary/List]]"
+		]
+        
+	}
+}

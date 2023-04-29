@@ -1,0 +1,5 @@
+caption: Will be decrypted
+title: $:/plugins/FSpark/TW5-CSE/filters/decrement
+type: text/vnd.tiddlywiki
+
+[subfilter<oldfilter>] -[subfilter<newfilter>]

@@ -1,0 +1,10 @@
+title: $:/plugins/FSpark/TW5-CSE/templates/filtersButton
+type: text/vnd.tiddlywiki
+
+\define tabCaption()
+<$set name="currentFilter" tiddler=<<currentTab>> >
+{{{ [<currentTab>get[caption]] }}}: <$count filter=<<currentFilter>> />
+</$set>
+\end
+
+<$macrocall $name="dynamicvars" currentVars={{{ [<currentTab>get[vars]] }}} content=<<tabCaption>> />

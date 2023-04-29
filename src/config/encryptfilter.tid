@@ -1,0 +1,4 @@
+title: $:/config/TW5-CSE/EncryptFilter
+type: text/vnd.tiddlywiki
+
+[all[]!is[system]!is[binary]]

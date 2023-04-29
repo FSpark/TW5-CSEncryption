@@ -1,0 +1,6 @@
+caption: Changes will be pushed to the server
+title: $:/plugins/FSpark/TW5-CSE/filters/union
+type: text/vnd.tiddlywiki
+vars: decrement={{$:/plugins/FSpark/TW5-CSE/filters/decrement}} increment={{$:/plugins/FSpark/TW5-CSE/filters/increment}} 
+
+[subfilter<decrement>] [subfilter<increment>]

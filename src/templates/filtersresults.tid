@@ -1,0 +1,16 @@
+title: $:/plugins/FSpark/TW5-CSE/templates/filtersResults
+type: text/vnd.tiddlywiki
+
+\define listResults()
+<$text text=<<hahaha>> />
+
+<$set name="currentFilter" tiddler=<<currentTab>> >
+
+<$text text=<<currentFilter>>/>
+
+<$list filter=<<currentFilter>>/>
+
+</$set>
+\end
+
+<$macrocall $name="dynamicvars" currentVars={{{ [<currentTab>get[vars]] }}} content=<<listResults>> />

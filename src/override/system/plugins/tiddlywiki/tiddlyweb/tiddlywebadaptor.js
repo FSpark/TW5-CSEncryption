@@ -178,7 +178,8 @@ TiddlyWebAdaptor.prototype.getSkinnyTiddlers = function(callback) {
 	$tw.utils.httpRequest({
 		url: this.host + "recipes/" + this.recipe + "/tiddlers.json",
 		data: {
-			filter: "[all[tiddlers]] -[[$:/isEncrypted]] -[prefix[$:/temp/]] -[prefix[$:/status/]] -[[$:/boot/boot.js]] -[[$:/boot/bootprefix.js]] -[[$:/library/sjcl.js]] -[[$:/core]]"
+			filter: "[all[tiddlers]] -[[$:/isEncrypted]] -[prefix[$:/temp/]] -[prefix[$:/status/]] -[[$:/boot/boot.js]] -[[$:/boot/bootprefix.js]] -[[$:/library/sjcl.js]] -[[$:/core]]",
+			exclude: "text,encrypted"
 		},
 		callback: function(err,data) {
 			// Check for errors
@@ -208,6 +209,17 @@ TiddlyWebAdaptor.prototype.saveTiddler = function(tiddler,callback,options) {
 	if(this.isReadOnly) {
 		return callback(null);
 	}
+	var CSEState = $tw.wiki.getTiddler("$:/isCSEncrypted")
+	var CSEFilter = $tw.wiki.getTiddlerText('$:/config/TW5-CSE/EncryptFilter',"[all[]!is[system]]")
+	var CSEFilterArr = $tw.wiki.filterTiddlers(`${CSEFilter} :filter[field:title[${tiddler.fields.title}]]`)
+	if(CSEState?.fields?.text === 'yes' && CSEFilterArr.length == 1 && CSEFilterArr[0] === tiddler.fields.title )
+		tiddler = new $tw.Tiddler(
+			{
+				title: tiddler.fields.title,
+				text: "Is Encrypted",
+				encrypted: $tw.CSE.encryptFields(tiddler.fields.title),
+			}
+		)
 	$tw.utils.httpRequest({
 		url: this.host + "recipes/" + encodeURIComponent(this.recipe) + "/tiddlers/" + encodeURIComponent(tiddler.fields.title),
 		type: "PUT",
@@ -250,7 +262,19 @@ TiddlyWebAdaptor.prototype.loadTiddler = function(title,callback) {
 				return callback(err);
 			}
 			// Invoke the callback
-			callback(null,self.convertTiddlerFromTiddlyWebFormat(JSON.parse(data)));
+			data = self.convertTiddlerFromTiddlyWebFormat(JSON.parse(data))
+			if($tw.utils.hop(data,"encrypted")) {
+				var decryptedFields = $tw.CSE.decryptFields(data)
+				if(decryptedFields) {
+					if($tw.utils.hop(data,"revision") && $tw.utils.hop(data,"bag") )
+						decryptedFields = $tw.utils.extend(decryptedFields,{
+							revision: data.revision,
+							bag: data.bag
+						})
+					data = decryptedFields
+				}
+			}
+			callback(null, data);
 		}
 	});
 };

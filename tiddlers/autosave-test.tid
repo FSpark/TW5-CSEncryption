@@ -1,0 +1,11 @@
+created: 20230428022029866
+modified: 20230428022634945
+tags: 
+title: autosave-test
+type: text/vnd.tiddlywiki
+
+<$button message="tm-auto-save-wiki" >
+
+Press me!
+
+</$button>

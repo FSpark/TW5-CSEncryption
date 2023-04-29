@@ -1,0 +1,36 @@
+caption: Filter
+created: 20230427150824661
+modified: 20230427150834801
+title: $:/plugins/FSpark/TW5-CSE/settings/filter
+type: text/vnd.tiddlywiki
+
+\define dynamicvars(currentVars, content)
+<$vars $currentVars$ >
+$content$
+</$vars>
+\end
+
+\define applyActions()
+<$action-setfield $tiddler="$:/config/TW5-CSE/EncryptFilter" text={{$:/temp/CSE/new-filter}} />
+<$action-cse-forcepush $filter={{$:/plugins/FSpark/TW5-CSE/filters/union}} />
+\end
+
+\define applyButton()
+<$button actions=<<applyActions>>>Apply New Filter and Push to Server</$button>
+\end
+
+!! Change Filter
+
+|tc-table-no-border|k
+|Old Filter: |<$edit-text tiddler="$:/config/TW5-CSE/EncryptFilter" tag=input disabled="yes"/>|
+|New Filter: |<$edit-text tiddler="$:/temp/CSE/new-filter" tag=input/>|
+
+<$set name="oldfilter" tiddler="$:/config/TW5-CSE/EncryptFilter" >
+<$set name="newfilter" tiddler="$:/temp/CSE/new-filter" >
+
+<$macrocall $name="dynamicvars" currentVars={{{ [[$:/plugins/FSpark/TW5-CSE/filters/union]get[vars]] }}} content=<<applyButton>> />
+
+<<tabs "[all[shadows]prefix[$:/plugins/FSpark/TW5-CSE/filters]]" "" "" "" "$:/plugins/FSpark/TW5-CSE/templates/filtersResults" "$:/plugins/FSpark/TW5-CSE/templates/filtersButton">>
+</$set>
+</$set>
+

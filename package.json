@@ -1,0 +1,28 @@
+{
+  "name": "TW5-CSEncryption",
+  "version": "0.2.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "env": "pnpm dlx cross-env TIDDLYWIKI_PLUGIN_PATH='./plugins'",
+    "serve": "pnpm run env tiddlywiki ./ --verbose --listen port=8087 root-tiddler=$:/plugins/FSpark/TW5-CSE/boot/entry.tid",
+    "watch": "pnpm run env gulp watch",
+    "clean": "rimraf ./plugins/FSpark ./output",
+    "build:HTML": "pnpm run clean && pnpm run env gulp buildHTML",
+    "build:pluginFolder": "pnpm run clean && pnpm run env gulp build",
+    "build:pluginJSON": "pnpm run env tiddlywiki ./ --verbose --build plugins",
+    "build:readme": "tiddlywiki ./ --verbose --build readme",
+    "build:library": "pnpm run env tiddlywiki ./ --verbose --build library"
+  },
+  "keywords": [],
+  "author": "FSpark",
+  "license": "MIT",
+  "dependencies": {
+    "tiddlywiki": "^5.2.7"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.21.4",
+    "gulp": "^4.0.2"
+  }
+}

@@ -1,0 +1,5 @@
+list: password filter
+title: $:/plugins/FSpark/TW5-CSE/ui/SettingsPanel
+type: text/vnd.tiddlywiki
+
+<<tabs "[enlist{!!list}addprefix[$:/plugins/FSpark/TW5-CSE/settings/]]" "$:/plugins/FSpark/TW5-CSE/settings/password" "" "tc-vertical">>

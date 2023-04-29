@@ -35,3 +35,10 @@ title: $:/core/templates/store.area.template.html
         <$encrypt filter=<<saveTiddlerFilter>>/>
     `</pre>`
 </$list>
+<!-- CSEncrypted -->
+<$list filter="[[$:/isCSEncrypted]get[text]else[no]match[yes]]">
+    `<!--~~ Encrypted tiddlers ~~-->`
+    `<pre id="CSEncryptedMetaArea" type="application/json" style="display:none;">`
+        <<csemeta>>
+    `</pre>`
+</$list>
