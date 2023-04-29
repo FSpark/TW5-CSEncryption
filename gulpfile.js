@@ -13,7 +13,10 @@ const sources = {
     output: `./plugins/${author}/${pluginName}`,
 };
 
-const gulpTw = gtw({ author, pluginName, sources });
+const gulpTw = gtw({
+    author, pluginName, sources,
+    serveOptions: ['port=8087', 'root-tiddler=$:/plugins/FSpark/TW5-CSE/boot/entry.tid']
+});
 
 // ==================================================
 // ====================== TASKS =====================

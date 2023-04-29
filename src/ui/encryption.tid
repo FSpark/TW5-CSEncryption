@@ -6,7 +6,7 @@ type: text/vnd.tiddlywiki
 
 \whitespace trim
 <$reveal type="match" state="$:/isCSEncrypted" text="yes">
-<$button message="tm-cse-clear-password" tooltip={{$:/language/Buttons/Encryption/ClearPassword/Hint}} aria-label={{$:/language/Buttons/Encryption/ClearPassword/Caption}} class=<<tv-config-toolbar-class>>>
+<$button to="$:/plugins/FSpark/TW5-CSE/ui/SettingsPanel" tooltip={{$:/language/Buttons/Encryption/ClearPassword/Hint}} aria-label={{$:/language/Buttons/Encryption/ClearPassword/Caption}} class=<<tv-config-toolbar-class>>>
 <$list filter="[<tv-config-toolbar-icons>match[yes]]">
 {{$:/plugins/FSpark/TW5-CSE/ui/cloudlock}}
 </$list>
