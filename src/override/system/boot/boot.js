@@ -822,13 +822,56 @@ $tw.utils.CSE = function () {
 
 		widget = widget || $tw.rootWidget
 
-		$tw.wiki.filterTiddlers(filter, widget).forEach(function (title)  {
+		var filterTiddlers = $tw.wiki.filterTiddlers(filter, widget)
+		var filterTiddlersLength = filterTiddlers.length
+
+		filterTiddlers.forEach(function (title)  {
 			if($tw.utils.hop($tw.wiki.changeCount, title)) {
 				$tw.wiki.changeCount[title]++;
 			} else {
 				$tw.wiki.changeCount[title] = 1;
 			}
 		})
+
+		var id = $tw.wiki.getTiddlerText('$:/temp/CSE-IntervalID')
+		if(id) clearTimeout(parseInt(id))
+		var self = this;
+		$tw.modal.display("$:/plugins/FSpark/TW5-CSE/ui/PushingModal")
+		var startTime = Date.now();
+		id = setInterval(function() {
+			if($tw.syncer.isDirty()){
+				// Filter out unsynced
+				filterTiddlers = filterTiddlers.filter(function (title) {
+					return !$tw.syncer.tiddlerInfo[title] || $tw.wiki.getChangeCount(title) > $tw.syncer.tiddlerInfo[title].changeCount
+				})
+				var syncedTiddlers = filterTiddlersLength - filterTiddlers.length
+				var percentComplete = (syncedTiddlers * 100 / filterTiddlersLength).toFixed(2)  + '%'
+
+				var endTime = Date.now(); 
+				var timeElapsed = (endTime - startTime) / 1000;
+				var syncSpeed = syncedTiddlers / timeElapsed;
+				var remainingTiddlersSize = filterTiddlers.length; 
+				var remainingTime = remainingTiddlersSize / syncSpeed;
+
+				var hours = Math.floor(remainingTime / 3600).toString().padStart(2, '0');
+				var minutes = Math.floor((remainingTime % 3600) / 60).toString().padStart(2, '0');
+				var seconds = Math.floor(remainingTime % 60).toString().padStart(2, '0');
+
+				$tw.wiki.addTiddler({
+					title: "$:/temp/CSENumTasksInProgress",
+					text: `${syncedTiddlers}/${filterTiddlersLength} ${percentComplete}` })
+				$tw.wiki.addTiddler({
+					title: "$:/temp/CSESyncEstimatedTimeLeft",
+					text: `Estimated time left: ${hours}:${minutes}:${seconds}` })
+			}else{
+				// debugger;
+				$tw.wiki.addTiddler({title: "$:/state/cse-modal-close", text: "yes"})
+				clearTimeout(id)
+				$tw.wiki.deleteTiddler("$:/temp/CSE-IntervalID")
+				$tw.wiki.deleteTiddler("$:/temp/CSENumTasksInProgress")
+			}
+		}, 500);
+		$tw.wiki.addTiddler({title: "$:/temp/CSE-IntervalID",text: id.toString()})
 	}
 	this.saveTiddler = function (tiddler, fields) {
 		debugger;

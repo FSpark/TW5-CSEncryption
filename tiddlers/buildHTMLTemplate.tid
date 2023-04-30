@@ -1,11 +1,11 @@
 created: 20230428085058719
-modified: 20230428085146245
+modified: 20230430061314905
 tags: 
 title: buildHTMLTemplate
 type: text/vnd.tiddlywiki
 
 \import [[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]
 \define saveTiddlerFilter()
-[is[tiddler]] -[[$:/boot/boot.css]] -[prefix[$:/HistoryList]] -[status[pending]plugin-type[import]] -[type[application/javascript]library[yes]] -[[$:/boot/boot.js]] -[[$:/boot/bootprefix.js]] -[[$:/plugins/tiddlywiki/filesystem]] -[[$:/plugins/tiddlywiki/tiddlyweb]] -[[$:/plugins/FSpark/TW5-CSE]] -[prefix[$:/temp/]] +[sort[title]] $(publishFilter)$
+[is[tiddler]] -[[$:/boot/boot.css]] -[prefix[$:/HistoryList]] -[status[pending]plugin-type[import]] -[type[application/javascript]library[yes]] -[[$:/boot/boot.js]] -[[$:/boot/bootprefix.js]] -[[$:/plugins/tiddlywiki/filesystem]] -[[$:/plugins/tiddlywiki/tiddlyweb]] -[[$:/plugins/FSpark/TW5-CSE]] -[prefix[$:/temp/]] -[tag[test]] +[sort[title]]  $(publishFilter)$
 \end
 {{$:/core/templates/tiddlywiki5.html}}

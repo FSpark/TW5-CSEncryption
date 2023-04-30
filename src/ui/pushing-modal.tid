@@ -1,0 +1,24 @@
+title: $:/plugins/FSpark/TW5-CSE/ui/PushingModal
+type: text/vnd.tiddlywiki
+footer:
+
+@@text-align:center;
+<div>
+{{$:/plugins/FSpark/TW5-CSE/ui/icon-sync}}
+
+
+<p>Current progress: synced/total</p>
+
+<p>{{$:/temp/CSENumTasksInProgress}}</p>
+
+<p>{{$:/temp/CSESyncEstimatedTimeLeft}}</p>
+
+</div>
+@@
+
+<$reveal type="match" state="$:/state/cse-modal-close" text="yes">
+
+<$macrocall $name="invoke" action="""<$action-sendmessage $message="tm-close-tiddler"/>"""/>
+<$macrocall $name="invoke" action="""<$action-setfield $tiddler="$:/state/cse-modal-close" text="no"/>"""/>
+
+</$reveal>

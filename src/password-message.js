@@ -62,6 +62,27 @@
                 $tw.CSE.forgetPassword();
             }
         });
+        $tw.rootWidget.addEventListener("tm-cse-modal-test", function (event) {
+            if($tw.browser) {
+                var id = $tw.wiki.getTiddlerText('$:/temp/CSE-IntervalID')
+                var n = 0
+                if(id) clearTimeout(parseInt(id))
+                var self = this;
+                $tw.modal.display("$:/plugins/FSpark/TW5-CSE/ui/PushingModal")
+                id = setInterval(function() {
+                    if(n<5){
+                        $tw.wiki.addTiddler({title: "$:/temp/shownumber",text: n.toString()})
+                    }else{
+                        // debugger;
+                        $tw.wiki.addTiddler({title: "$:/state/cse-modal-close", text: "yes"})
+                        clearTimeout(id)
+                        $tw.wiki.deleteTiddler("$:/temp/CSE-IntervalID")
+                    }
+                    n++;
+                }, 1000);
+                $tw.wiki.addTiddler({title: "$:/temp/CSE-IntervalID",text: id.toString()})
+            }
+        });
         // Ensure that $:/isCSEncrypted is maintained properly
         $tw.wiki.addEventListener("change", function (changes) {
             if($tw.utils.hop(changes, "$:/isCSEncrypted")) {

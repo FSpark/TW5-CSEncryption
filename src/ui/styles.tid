@@ -1,0 +1,12 @@
+title: $:/plugins/FSpark/TW5-CSE/ui/styles
+tags: [[$:/tags/Stylesheet]]
+
+\rules only filteredtranscludeinline transcludeinline macrodef macrocallinline macrocallblock
+
+body.tc-dirty .tc-image-cse-cloud-progress {
+	transition: opacity 250ms ease-in-out;
+	transform-origin: 50% 50%;
+	transform: rotate(359deg);
+	animation: animation-rotate-slow 2s infinite linear;
+	fill: <<colour background>>;
+}

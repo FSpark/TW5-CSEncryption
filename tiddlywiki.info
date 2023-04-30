@@ -6,6 +6,7 @@
         "tiddlywiki/highlight",
         "tiddlywiki/pluginlibrary",
 		"tiddlywiki/markdown",
+		"tiddlywiki/internals",
         "FSpark/TW5-CSE"
     ],
 

@@ -28,7 +28,7 @@ $content$
 
 <$macrocall $name="dynamicvars" currentVars={{{ [[$:/plugins/FSpark/TW5-CSE/filters/union]get[vars]] }}} content=<<applyButton>> />
 
-<<tabs "[prefix[$:/plugins/FSpark/TW5-CSE/filters]]" "" "" "" "$:/plugins/FSpark/TW5-CSE/templates/filtersResults" "$:/plugins/FSpark/TW5-CSE/templates/filtersButton">>
+<<tabs "[all[shadows]prefix[$:/plugins/FSpark/TW5-CSE/filters]]" "" "" "" "$:/plugins/FSpark/TW5-CSE/templates/filtersResults" "$:/plugins/FSpark/TW5-CSE/templates/filtersButton">>
 </$set>
 </$set>
 
