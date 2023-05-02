@@ -3,3 +3,16 @@ plugins/FSpark
 output
 devtiddlers
 HugeWikiExample
+
+tiddlers/$__language.tid
+tiddlers/$__StoryList.tid
+tiddlers/$__StoryList_*.tid
+tiddlers/$__keepstate_*
+tiddlers/$__Import.tid
+tiddlers/$__UpgradeLibrary
+tiddlers/$__UpgradeLibrary_List
+tiddlers/$__temp_*
+tiddlers/$__view.tid
+tiddlers/$__config_Navigation_openLinkFromInsideRiver.tid
+tiddlers/$__config_Navigation_openLinkFromOutsideRiver.tid
+tiddlers/$__StoryList.tid
