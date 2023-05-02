@@ -1,0 +1,21 @@
+created: 20230502080522188
+creator: Sttot
+list-before: $:/core/ui/ViewTemplate/body
+modified: 20230502080612212
+modifier: Sttot
+tags: ExcludeFromEmpty $:/tags/ViewTemplate
+title: LanguageSwitchBody
+type: text/vnd.tiddlywiki
+
+<$list filter="[[$:/language]get[text]removeprefix[$:/languages/]else[en-GB]]" variable="lang">
+<$list filter="[<lang>search:title[zh]]" variable="lang">
+
+<$transclude tiddler={{{ [{!!title}addsuffix[_CN]] }}}/>
+
+</$list>
+<$list filter="[<lang>!search:title[zh]]" variable="lang">
+
+<$transclude tiddler={{{ [{!!title}addsuffix[_EN]] }}}/>
+
+</$list>
+</$list>

@@ -15,6 +15,10 @@
         "tiddlywiki/snowwhite"
     ],
 
+	"languages": [
+		"zh-Hans"
+	],
+
     "build": {
   		"index": [
   			"--rendertiddler","buildHTMLTemplate","index.html","text/plain"

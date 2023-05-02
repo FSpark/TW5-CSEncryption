@@ -1,0 +1,60 @@
+created: 20230502082523892
+modified: 20230502084216017
+tags: 
+title: Installation and Usage_EN
+type: text/vnd.tiddlywiki
+
+!!! 1. Installation
+
+Since this plugin can only run in a Node.js server-client environment, direct drag-and-drop installation is not available on this static documentation page.
+
+Please refer to the [[Installation example|https://kookma.github.io/TW-Todolist/#Install]] provided by [[kookma (Mohammad Rahmani)|https://github.com/kookma]] for specific installation steps, and we will not repeat them here.
+
+<<<
+!!! Plugin Source
+Drag and drop $:/config/CSEPluginLibrary to your wiki and install it from the plugin library.
+
+!!! Github Download drag in
+#Download this file: https://github.com/FSpark/TW5-CSEncryption/blob/gh-pages/recipes/library/tiddlers/%2524%253A%252Fplugins%252FFSpark%252FTW5-CSE.json
+# Drag and drop to install.
+
+<<<
+
+!!! 2. Configure Boot Method (Important)
+
+<<<
+Because this plugin overrides many system Tiddlers, you should be sure to be thoughtful when installing and upgrading.
+
+Due to the special status of $:/boot/boot.js, overriding the Shadow Tidder does not work directly within the plugin, and there are currently two methods (choose one):
+
+!!! 1. Set the startup entry
+
+Set `root-tiddler` to `$:/plugins/FSpark/TW5-CSE/boot/entry.tid`, e.g:
+
+`tiddlywiki . / --listen port=8080 root-tiddler=$:/plugins/FSpark/TW5-CSE/boot/entry.tid`
+
+* Advantages
+** Works out of the box, updates with the plugin.
+* Disadvantages
+** Will only start from boot.js inside the plugin, users can't apply changes themselves.
+
+!!! 2. Manual override by user
+
+Manually download the $:/boot/boot.js inside the plugin to the tiddlers folder, the overwriting mechanism takes effect.
+
+* Advantages
+** Easy for users to diff changes and upgrades by themselves anytime in the future.
+* Disadvantages
+** Difficult to keep in sync with core and plugin versions.
+<<<
+
+!!! 3. Getting Started
+After starting as in the previous step, you will see the {{icon-cloudunlock}} button in the sidebar, this is the unencrypted state, at this point the written Tiddlers are all in sync as normal.
+
+In the unencrypted state, you can manually override the filters under $:/config/TW5-CSE/EncryptFilter directly first, and this setting will be applied automatically the next time you encrypt. However, if you are in encrypted state, it is better to perform filter migration via $:/plugins/FSpark/TW5-CSE/settings/filter .
+
+!!! Start Encryption
+
+Write something random and click the {{icon-cloudlock}} button. Enter the password in the dialog and wait for it to sync.
+
+After that, click the {{icon-cloudlock}} button again and you will be taken to the plugin's settings page: $:/plugins/FSpark/TW5-CSE/ui/SettingsPanel, where you can change the password or something like that.

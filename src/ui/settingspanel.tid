@@ -1,5 +1,9 @@
+caption: CSEncryption
 list: password filter
+tags: $:/tags/ControlPanel
 title: $:/plugins/FSpark/TW5-CSE/ui/SettingsPanel
 type: text/vnd.tiddlywiki
 
+<$tiddler tiddler="$:/plugins/FSpark/TW5-CSE/ui/SettingsPanel">
 <<tabs "[enlist{!!list}addprefix[$:/plugins/FSpark/TW5-CSE/settings/]]" "$:/plugins/FSpark/TW5-CSE/settings/password" "" "tc-vertical">>
+</$tiddler>

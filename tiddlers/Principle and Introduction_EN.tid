@@ -1,0 +1,19 @@
+created: 20230502081028567
+modified: 20230502084334446
+tags: 
+title: Principle and Introduction_EN
+type: text/vnd.tiddlywiki
+
+!!! Background and Purpose
+* ~TiddlyWiki has [[official encryption mechanism|https://tiddlywiki.com/#Encryption]], but only for ''single files'' and build options.
+* The EncryptTiddler plugin by [[@danielo515 (Daniel Rodríguez Rivero)|https://github.com/danielo515]] brings the possibility to encrypt Tiddlers in bulk and works well on Node.js, but the process is all manual .
+* ~TiddlyWiki5 on Node.js can do HTTP basic authentication and configure TLS to encrypt the transfer process, but the plaintext data is saved on the server disk and can be viewed by any program running on it.
+* To fill this last gap, this plugin was developed to configure a master password for ~TiddlyWiki5 on Node.js, and automatically encrypt data once it leaves the browser (i.e. [[Client-Side Encryption |https://en.wikipedia.org/wiki/Client-side_ encryption]]).
+
+!!! Architecture Overview
+[img[TW5-CSE.png]]
+
+!!! Basic Principle
+By overriding $:/boot/boot.js and $:/plugins/tiddlywiki/tiddlyweb/tiddlywebadaptor.js, encryption and decryption steps are added during the startup and synchronization processes.
+
+The encryption process is the same as the EncryptTiddler plugin, converting all of Tiddler's fields to JSON and then encrypted by [[SJCL|Stanford JavaScript Crypto Library]], saving them to the `Encrypted` field. The Tiddler will only retain the `Title` field.

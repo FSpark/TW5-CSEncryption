@@ -1,0 +1,9 @@
+created: 20230502083830054
+modified: 20230502084153107
+tags: 
+title: Features_EN
+type: text/vnd.tiddlywiki
+
+* Compatible with and interacts with EncryptTiddler, supports using EncryptTiddler for encryption again internally, and the encrypted file can be decrypted using EncryptTiddler.
+* Use the same encryption library as EncryptTiddler, which is the [[SJCL|Stanford JavaScript Crypto Library]] built into TW5, and the default encryption method is AES-CCM 128.
+* Supports modifying and clearing passwords, supports modifying Filters, and instantly pushes the changes to the server.

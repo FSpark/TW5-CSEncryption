@@ -1,0 +1,61 @@
+created: 20230502082514122
+modified: 20230502084221766
+tags: 
+title: Installation and Usage_CN
+type: text/vnd.tiddlywiki
+
+!! 1. 安装
+
+因为这只能运行在 Node.js 服务器-客户端环境，所以此静态文档页不提供直接拖拽安装。
+
+具体安装步骤请参照 [[kookma (Mohammad Rahmani)|https://github.com/kookma]] 的 [[安装示例|https://kookma.github.io/TW-Todolist/#Install]]，这里不再赘述。
+
+<<<
+!!! 插件源
+拖拽 $:/config/CSEPluginLibrary 到您的 Wiki，再从插件库安装。
+
+!!! Github 下载拖入
+#下载该文件：https://github.com/FSpark/TW5-CSEncryption/blob/gh-pages/recipes/library/tiddlers/%2524%253A%252Fplugins%252FFSpark%252FTW5-CSE.json
+# 拖拽安装。
+
+<<<
+
+!! 2. 配置启动方式（重要）
+
+<<<
+因为本插件覆写了许多系统 Tiddler ，所以你在安装和升级的时候请务必考虑周全。
+
+由于 $:/boot/boot.js 的特殊地位，覆写影子Tidder在插件内无法直接生效，目前有两种方法（选择一种）：
+
+!!! 1. 设置启动入口
+
+设置 `root-tiddler` 为 `$:/plugins/FSpark/TW5-CSE/boot/entry.tid`，如：
+
+`tiddlywiki ./ --listen port=8080 root-tiddler=$:/plugins/FSpark/TW5-CSE/boot/entry.tid`
+
+* 优点
+** 开箱即用，随插件更新。
+* 缺点
+** 只会从插件内部的 boot.js 启动，用户无法自己应用修改。
+
+!!! 2. 用户手动覆盖
+
+手动下载插件内的 $:/boot/boot.js 到 tiddlers 文件夹下，覆写机制生效。
+
+* 优点
+** 方便用户今后随时自行 diff 修改和升级。
+* 缺点
+** 难与核心和插件版本保持同步。
+<<<
+
+!! 3. 开始使用
+按照上一步骤启动之后，你将会在侧边栏看到 {{icon-cloudunlock}} 按钮，这是未加密状态，此时写入的 Tiddlers 一切如故，正常同步。
+
+在未加密状态下，您可以先手动直接覆盖 $:/config/TW5-CSE/EncryptFilter 下的过滤器，此设置将在下次加密时自动应用。但若是在加密状态，则最好通过 $:/plugins/FSpark/TW5-CSE/settings/filter 来执行过滤器迁移。
+
+!!! 开始加密
+
+随便写点什么，点击 {{icon-cloudlock}} 按钮。在对话框输入密码，等待同步即可。
+
+之后再次点击 {{icon-cloudlock}} 按钮，将会跳到插件的设置页面：$:/plugins/FSpark/TW5-CSE/ui/SettingsPanel ，请在这里执行更改密码之类的操作。
+

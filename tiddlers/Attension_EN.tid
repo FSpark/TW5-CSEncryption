@@ -1,0 +1,17 @@
+created: 20230404170137408
+modified: 20230502084236520
+tags: 
+title: Attension_EN
+type: text/vnd.tiddlywiki
+
+!! Be Sure to Backup First
+This plugin is still in an unstable state, please be sure to protect your data properly!!
+
+!! DO ''NOT'' use Lazyload
+In lazyload mode, the browser cannot retrieve the full text every time, and encryption status cannot be controlled. Currently, it is completely ''incompatible'' and will only cause Tiddlers to be lost. There are no plans for it in the future (unless there are better ideas, please let me know).
+
+!! Avoid Encrypting Binary Tiddlers
+Not only does it slow down the speed, but it also brings about a file size increase of approximately 1.8 times!
+
+!! Affect Git Diff
+Git Diff is a very important and convenient feature, but because each encryption introduces random numbers, the same password will have completely different ciphertext, making file history very messy. This plugin has tried its best to implement differential changes.
