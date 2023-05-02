@@ -18,7 +18,7 @@ Run the macro
 exports.run = function() {
 	
 	return JSON.stringify({
-		version: $tw.version,
+		version: $tw.wiki.getTextReference("$:/plugins/FSpark/TW5-CSE!!version","0.0.0"),
 		config: $tw.wiki.getTiddlerData("$:/plugins/FSpark/TW5-CSE/metaconfig.json")
 	});
 };

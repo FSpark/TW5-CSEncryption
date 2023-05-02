@@ -216,7 +216,7 @@ TiddlyWebAdaptor.prototype.saveTiddler = function(tiddler,callback,options) {
 		tiddler = new $tw.Tiddler(
 			{
 				title: tiddler.fields.title,
-				text: "Is Encrypted",
+				text: "CSEncrypted",
 				encrypted: $tw.CSE.encryptFields(tiddler.fields.title),
 			}
 		)

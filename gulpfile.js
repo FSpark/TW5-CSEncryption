@@ -7,7 +7,7 @@ const sources = {
     sass: "./src/**/*.scss",
     tiddlers: "./src/**/*.tid",
     javascript: ['./src/**/*.js', '!./src/override/**/*.js'],
-    originCopy: ["./src/override/**/*.js", "./src/**/*.json", "./src/**/*.meta", "!./src/**/*.js.meta"],
+    originCopy: ["./src/override/**/*.js", "./src/**/*.json", "./src/**/*.md", "./src/**/*.meta", "!./src/**/*.js.meta"],
     pluginInfo: "./src/plugin.info",
     metaBundle: ' ',
     output: `./plugins/${author}/${pluginName}`,
