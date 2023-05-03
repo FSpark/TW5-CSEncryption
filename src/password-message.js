@@ -11,6 +11,7 @@
 
     exports.startup = function () {
         $tw.rootWidget.addEventListener("tm-cse-set-password", function (event) {
+            if(!checkCSE()) return;
             var params, password;
             if(typeof event.paramObject === "object") {
                 params = event.paramObject;
@@ -43,6 +44,7 @@
             }
         });
         $tw.rootWidget.addEventListener("tm-cse-clear-password", function (event) {
+            if(!checkCSE()) return;
             if($tw.browser) {
                 if (!confirm($tw.language.getString("Encryption/ConfirmClearPassword"))) {
                     return;
@@ -52,13 +54,32 @@
             $tw.CSE.forcePush();
         });
         $tw.rootWidget.addEventListener("tm-cse-remember-password", function (event) {
+            if(!checkCSE()) return;
             if($tw.browser) {
                $tw.CSE.rememberPassword();
             }
         });
         $tw.rootWidget.addEventListener("tm-cse-forget-password", function (event) {
+            if(!checkCSE()) return;
             if($tw.browser) {
                 $tw.CSE.forgetPassword();
+            }
+        });
+        function checkCSE(){
+            if($tw.CSE) {
+                $tw.wiki.addTiddler({title: "$:/state/cse-booted", text: "yes"})
+                return true
+            } else {
+                $tw.wiki.addTiddler({title: "$:/state/cse-booted", text: "no"})
+                alert("CSE failed to start successfully, please read the documentation carefully or ask for help.")
+                return false
+            }
+        }
+        $tw.rootWidget.addEventListener("tm-cse-check-boot", function (event) {
+            if($tw.browser) {
+                if($tw.CSE){
+                    checkCSE()
+                }
             }
         });
         // Ensure that $:/isCSEncrypted is maintained properly

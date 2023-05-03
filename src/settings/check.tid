@@ -1,0 +1,18 @@
+caption: Check
+title: $:/plugins/FSpark/TW5-CSE/settings/check
+type: text/vnd.tiddlywiki
+
+!! Check boot
+
+<$macrocall $name="invoke" action="""<$action-sendmessage $message="tm-cse-check-boot"/>"""/>
+
+<$reveal type="match" state="$:/state/cse-booted" text="yes">
+
+CSE started successfully, let's start encryption！
+
+</$reveal>
+<$reveal type="nomatch" state="$:/state/cse-booted" text="yes">
+
+<$error $message="CSE failed to start successfully, please read the documentation carefully or ask for help."/>
+
+</$reveal>

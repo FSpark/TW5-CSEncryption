@@ -1,10 +1,10 @@
 created: 20230502082523892
-modified: 20230502132605756
+modified: 20230503091614820
 tags: 
 title: Installation and Usage_EN
 type: text/vnd.tiddlywiki
 
-!!! 1. Installation
+!! 1. Installation
 
 Since this plugin can only run in a Node.js server-client environment, direct drag-and-drop installation is not available on this static documentation page.
 
@@ -20,7 +20,7 @@ Drag and drop $:/config/CSEPluginLibrary to your wiki and install it from the pl
 
 <<<
 
-!!! 2. Configure Boot Method (Important)
+!! 2. Configure Boot Method (Important)
 
 <<<
 Because this plugin overrides many system Tiddlers, you should be sure to be thoughtful when installing and upgrading.
@@ -48,7 +48,11 @@ Manually download the $:/boot/boot.js inside the plugin to the tiddlers folder, 
 ** Difficult to keep in sync with core and plugin versions.
 <<<
 
-!!! 3. Getting Started
+!! 3. Check CSE
+
+> Please go $:/plugins/FSpark/TW5-CSE/settings/check first to check if CSE started successfully. 
+
+!! 4. Getting Started
 
 <<<
 After starting as in the previous step, you will see the {{icon-cloudunlock}} button in the sidebar, this is the unencrypted state, at this point the written Tiddlers are all in sync as normal.

@@ -5,6 +5,10 @@
 Client-Side Encryption for [TiddlyWiki5](https://tiddlywiki.com) on Node.js
 </div>
 
+### Check CSE
+
+Please go $:/plugins/FSpark/TW5-CSE/settings/check first to check if CSE started successfully.
+
 ### Getting Started
 You can see the {{$:/plugins/FSpark/TW5-CSE/ui/cloudunlock}} button in the sidebar, this is the unencrypted state, at this point the written Tiddlers are all in sync as normal.
 

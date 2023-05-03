@@ -1,5 +1,5 @@
 caption: CSEncryption
-list: password filter
+list: password filter check
 tags: $:/tags/ControlPanel
 title: $:/plugins/FSpark/TW5-CSE/ui/SettingsPanel
 type: text/vnd.tiddlywiki
