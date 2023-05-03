@@ -1,5 +1,5 @@
 created: 20230502082514122
-modified: 20230502084221766
+modified: 20230503080006093
 tags: 
 title: Installation and Usage_CN
 type: text/vnd.tiddlywiki
@@ -49,6 +49,7 @@ type: text/vnd.tiddlywiki
 <<<
 
 !! 3. 开始使用
+<<<
 按照上一步骤启动之后，你将会在侧边栏看到 {{icon-cloudunlock}} 按钮，这是未加密状态，此时写入的 Tiddlers 一切如故，正常同步。
 
 在未加密状态下，您可以先手动直接覆盖 $:/config/TW5-CSE/EncryptFilter 下的过滤器，此设置将在下次加密时自动应用。但若是在加密状态，则最好通过 $:/plugins/FSpark/TW5-CSE/settings/filter 来执行过滤器迁移。
@@ -59,3 +60,4 @@ type: text/vnd.tiddlywiki
 
 之后再次点击 {{icon-cloudlock}} 按钮，将会跳到插件的设置页面：$:/plugins/FSpark/TW5-CSE/ui/SettingsPanel ，请在这里执行更改密码之类的操作。
 
+<<<

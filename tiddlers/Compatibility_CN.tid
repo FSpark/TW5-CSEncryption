@@ -1,0 +1,9 @@
+created: 20230503080232731
+modified: 20230503080720575
+tags: 
+title: Compatibility_CN
+type: text/vnd.tiddlywiki
+
+当前，只在 TiddlyWiki >= 5.2.7 完成测试，且内核覆盖也是基于 5.2.7 版完成。
+
+会与其他会覆写相同系统Tiddlers的插件起冲突！

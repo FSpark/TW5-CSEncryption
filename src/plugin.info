@@ -3,7 +3,7 @@
     "name": "TW5-CSEncryption",
     "description": "Client-Side Encryption for TiddlyWiki5 on Node.js",
     "author": "FSpark",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "core-version": "5.2.7",
     "source": "",
     "list": "readme license",

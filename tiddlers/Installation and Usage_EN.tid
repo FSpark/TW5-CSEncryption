@@ -1,5 +1,5 @@
 created: 20230502082523892
-modified: 20230502084216017
+modified: 20230502132605756
 tags: 
 title: Installation and Usage_EN
 type: text/vnd.tiddlywiki
@@ -49,6 +49,8 @@ Manually download the $:/boot/boot.js inside the plugin to the tiddlers folder, 
 <<<
 
 !!! 3. Getting Started
+
+<<<
 After starting as in the previous step, you will see the {{icon-cloudunlock}} button in the sidebar, this is the unencrypted state, at this point the written Tiddlers are all in sync as normal.
 
 In the unencrypted state, you can manually override the filters under $:/config/TW5-CSE/EncryptFilter directly first, and this setting will be applied automatically the next time you encrypt. However, if you are in encrypted state, it is better to perform filter migration via $:/plugins/FSpark/TW5-CSE/settings/filter .
@@ -58,3 +60,4 @@ In the unencrypted state, you can manually override the filters under $:/config/
 Write something random and click the {{icon-cloudlock}} button. Enter the password in the dialog and wait for it to sync.
 
 After that, click the {{icon-cloudlock}} button again and you will be taken to the plugin's settings page: $:/plugins/FSpark/TW5-CSE/ui/SettingsPanel, where you can change the password or something like that.
+<<<

@@ -209,10 +209,10 @@ TiddlyWebAdaptor.prototype.saveTiddler = function(tiddler,callback,options) {
 	if(this.isReadOnly) {
 		return callback(null);
 	}
-	var CSEState = $tw.wiki.getTiddler("$:/isCSEncrypted")
+	var CSEState = $tw.wiki.getTiddlerText("$:/isCSEncrypted", "no")
 	var CSEFilter = $tw.wiki.getTiddlerText('$:/config/TW5-CSE/EncryptFilter',"[all[]!is[system]]")
 	var CSEFilterArr = $tw.wiki.filterTiddlers(`${CSEFilter} :filter[field:title[${tiddler.fields.title}]]`)
-	if(CSEState?.fields?.text === 'yes' && CSEFilterArr.length == 1 && CSEFilterArr[0] === tiddler.fields.title )
+	if(CSEState === 'yes' && CSEFilterArr.length == 1 && CSEFilterArr[0] === tiddler.fields.title )
 		tiddler = new $tw.Tiddler(
 			{
 				title: tiddler.fields.title,
