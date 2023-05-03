@@ -1890,7 +1890,7 @@ $tw.boot.decryptEncryptedTiddlers = function(callback) {
 				callback();
 				return true;
 			}
-			if(CSEncryptedInfo && CSEncryptedInfo.config && CSEncryptedInfo.config.RmbPwd === "yes"){
+			if(CSEncryptedInfo && CSEncryptedInfo.config && CSEncryptedInfo.config.RmbPwd === "yes" && window.localStorage.getItem("tw5-cse-pwd")){
 				pwdCallback({password:window.localStorage.getItem("tw5-cse-pwd")})
 			} else {
 				$tw.passwordPrompt.createPrompt({
