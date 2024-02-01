@@ -4,6 +4,6 @@ tags:
 title: Compatibility_EN
 type: text/vnd.tiddlywiki
 
-Currently, testing is only done on TiddlyWiki >= 5.2.7, and the core overriden is done based on version 5.2.7.
+Currently, testing is only done on TiddlyWiki >= 5.3.3, and the core overriden is done based on version 5.3.3.
 
 Conflicts with other plugins that overwrite the same tiddlers!

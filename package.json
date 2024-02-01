@@ -1,6 +1,6 @@
 {
   "name": "TW5-CSEncryption",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "author": "FSpark",
   "license": "MIT",
   "dependencies": {
-    "tiddlywiki": "^5.2.7"
+    "tiddlywiki": "^5.3.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.21.4",
