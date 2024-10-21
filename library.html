@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="application-name" content="TiddlyWiki Plugin Library" />
+<meta name="application-version" content="v0.0.0" />
+<meta name="copyright" content="Copyright 2015 Jeremy Ruston" />
+<link id="faviconLink" rel="shortcut icon" href="favicon.ico">
+<title>Plugin Library</title>
+<script>
+var assetList = [
+    {
+        "title": "$:/plugins/FSpark/TW5-CSE",
+        "name": "TW5-CSEncryption",
+        "description": "Client-Side Encryption for TiddlyWiki5 on Node.js",
+        "author": "FSpark",
+        "version": "0.5.0",
+        "core-version": "5.3.3",
+        "source": "",
+        "list": "readme ui/SettingsPanel license",
+        "parent-plugin": "",
+        "dependents": "$:/plugins/tiddlywiki/tiddlyweb",
+        "plugin-type": "plugin",
+        "packaged-by": "Gatha on 25th April 2023, 21:08:50",
+        "released": "2024-10-21T14:50:10.194Z",
+        "type": "application/json",
+        "readme": "<div align=\"center\">\n\n! TW5-CSEncryption\n\nClient-Side Encryption for [[TiddlyWiki5|https://tiddlywiki.com]] on Node.js\n</div>\n\n!!! Check CSE\n\nPlease go $:/plugins/FSpark/TW5-CSE/settings/check first to check if CSE started successfully.\n\n!!! Getting Started\nYou can see the {{$:/plugins/FSpark/TW5-CSE/ui/cloudunlock}} button in the sidebar, this is the unencrypted state, at this point the written Tiddlers are all in sync as normal.\n\nIn the unencrypted state, you can manually override the filters under $:/config/TW5-CSE/EncryptFilter directly first, and this setting will be applied automatically the next time you encrypt. However, if you are in encrypted state, it is better to perform filter migration via $:/plugins/FSpark/TW5-CSE/settings/filter .\n\n!!! Start Encryption\n\nWrite something random and click the {{$:/plugins/FSpark/TW5-CSE/ui/cloudlock}} button. Enter the password in the dialog and wait for it to sync.\n\nAfter that, click the {{$:/plugins/FSpark/TW5-CSE/ui/cloudlock}} button again and you will be taken to the plugin's settings page: $:/plugins/FSpark/TW5-CSE/ui/SettingsPanel, where you can change the password or something like that.\n\n!!! Further More\n* Online documentation: https://fspark.github.io/TW5-CSEncryption/\n* Issue feedback: https://github.com/FSpark/TW5-CSEncryption/issues",
+        "requires-reload": "yes",
+        "icon": "data:text/vnd.tiddlywiki,%7B%7B%24%3A%2Fplugins%2FFSpark%2FTW5-CSE%2Fui%2Fcloudlock%7D%7D"
+    }
+];
+
+/*\
+title: $:/plugins/tiddlywiki/pluginlibrary/libraryserver.js
+type: application/javascript
+module-type: library
+
+A simple HTTP-over-window.postMessage implementation of a standard TiddlyWeb-compatible server. It uses real HTTP to load the individual tiddler JSON files.
+
+\*/
+(function(){
+
+/*jslint node: true, browser: true */
+/*global $tw: false */
+"use strict";
+
+// Listen for window messages
+window.addEventListener("message",function listener(event){
+	console.log("plugin library: Received message from",event.origin);
+	console.log("plugin library: Message content",event.data);
+	switch(event.data.verb) {
+		case "GET":
+			if(event.data.url === "recipes/library/tiddlers.json") {
+				// Route for recipes/library/tiddlers.json
+				event.source.postMessage({
+					verb: "GET-RESPONSE",
+					status: "200",
+					cookies: event.data.cookies,
+					url: event.data.url,
+					type: "application/json",
+					body: JSON.stringify(assetList,null,4)
+				},"*");
+			} else if(event.data.url.indexOf("recipes/library/tiddlers/") === 0) {
+				var url = "recipes/library/tiddlers/" + encodeURIComponent(removePrefix(event.data.url,"recipes/library/tiddlers/"));
+				// Route for recipes/library/tiddlers/<uri-encoded-tiddler-title>.json
+				httpGet(url,function(err,responseText) {
+					if(err) {
+						event.source.postMessage({
+							verb: "GET-RESPONSE",
+							status: "404",
+							cookies: event.data.cookies,
+							url: event.data.url,
+							type: "text/plain",
+							body: "Not found"
+						},"*");
+					} else {
+						event.source.postMessage({
+							verb: "GET-RESPONSE",
+							status: "200",
+							cookies: event.data.cookies,
+							url: event.data.url,
+							type: "application/json",
+							body: responseText
+						},"*");
+					}
+				});
+			} else {
+				event.source.postMessage({
+					verb: "GET-RESPONSE",
+					status: "404",
+					cookies: event.data.cookies,
+					url: event.data.url,
+					type: "text/plain",
+					body: "Not found"
+				},"*");
+			}
+			break;
+	}
+},false);
+
+// Helper to remove string prefixes
+function removePrefix(string,prefix) {
+	if(string.indexOf(prefix) === 0) {
+		return string.substr(prefix.length);
+	} else {
+		return string;
+	}
+}
+
+// Helper for HTTP GET
+function httpGet(url,callback) {
+	var http = new XMLHttpRequest();
+	http.open("GET",url,true);
+	http.onreadystatechange = function() {
+		if(http.readyState == 4 && http.status == 200) {
+			callback(null,http.responseText);
+		}
+	};
+	http.send();
+}
+
+})();
+
+</script>
+</head>
+<body><h1>HelloThere</h1><p>This is the TiddlyWiki plugin library. It is not intended to be opened directly in the browser.</p><p>See <a href="https://tiddlywiki.com/" target="_blank">https://tiddlywiki.com/</a> for details of how to install plugins.</p></body>
+</html>

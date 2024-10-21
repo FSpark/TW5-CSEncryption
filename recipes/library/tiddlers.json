@@ -1,0 +1,21 @@
+[
+    {
+        "title": "$:/plugins/FSpark/TW5-CSE",
+        "name": "TW5-CSEncryption",
+        "description": "Client-Side Encryption for TiddlyWiki5 on Node.js",
+        "author": "FSpark",
+        "version": "0.5.0",
+        "core-version": "5.3.3",
+        "source": "",
+        "list": "readme ui/SettingsPanel license",
+        "parent-plugin": "",
+        "dependents": "$:/plugins/tiddlywiki/tiddlyweb",
+        "plugin-type": "plugin",
+        "packaged-by": "Gatha on 25th April 2023, 21:08:50",
+        "released": "2024-10-21T14:50:10.194Z",
+        "type": "application/json",
+        "readme": "<div align=\"center\">\n\n! TW5-CSEncryption\n\nClient-Side Encryption for [[TiddlyWiki5|https://tiddlywiki.com]] on Node.js\n</div>\n\n!!! Check CSE\n\nPlease go $:/plugins/FSpark/TW5-CSE/settings/check first to check if CSE started successfully.\n\n!!! Getting Started\nYou can see the {{$:/plugins/FSpark/TW5-CSE/ui/cloudunlock}} button in the sidebar, this is the unencrypted state, at this point the written Tiddlers are all in sync as normal.\n\nIn the unencrypted state, you can manually override the filters under $:/config/TW5-CSE/EncryptFilter directly first, and this setting will be applied automatically the next time you encrypt. However, if you are in encrypted state, it is better to perform filter migration via $:/plugins/FSpark/TW5-CSE/settings/filter .\n\n!!! Start Encryption\n\nWrite something random and click the {{$:/plugins/FSpark/TW5-CSE/ui/cloudlock}} button. Enter the password in the dialog and wait for it to sync.\n\nAfter that, click the {{$:/plugins/FSpark/TW5-CSE/ui/cloudlock}} button again and you will be taken to the plugin's settings page: $:/plugins/FSpark/TW5-CSE/ui/SettingsPanel, where you can change the password or something like that.\n\n!!! Further More\n* Online documentation: https://fspark.github.io/TW5-CSEncryption/\n* Issue feedback: https://github.com/FSpark/TW5-CSEncryption/issues",
+        "requires-reload": "yes",
+        "icon": "data:text/vnd.tiddlywiki,%7B%7B%24%3A%2Fplugins%2FFSpark%2FTW5-CSE%2Fui%2Fcloudlock%7D%7D"
+    }
+]
